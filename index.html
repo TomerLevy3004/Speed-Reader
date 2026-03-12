@@ -718,7 +718,10 @@
     words = text
       .split(/\n\s*\n+/)           // split on blank lines
       .flatMap((para, i, arr) => {
-        const ws = para.split(/\s+/).filter(w => w.length > 0);
+        const ws = Array.from(
+          para.matchAll(/[^\s\-\u2014\u2013\/\\_=|]+[\-\u2014\u2013\/\\_=|]*/g),
+          m => m[0]
+        );
         return i < arr.length - 1 ? [...ws, PARA_BREAK] : ws;
       })
       .filter(w => w.length > 0);
