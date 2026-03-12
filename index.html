@@ -351,6 +351,19 @@
       margin-top: 8px;
       min-height: 1.2em;
     }
+    /* ── DESKTOP overrides (never affects mobile ≤768px) ── */
+    @media (min-width: 769px) {
+      #setup-screen {
+        max-width: 860px;
+        padding: 48px 32px;
+      }
+      .reader-main {
+        max-width: 900px;
+      }
+      .reader-top-bar {
+        max-width: 900px;
+      }
+    }
   </style>
 </head>
 <body>
