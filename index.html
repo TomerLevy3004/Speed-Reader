@@ -554,9 +554,17 @@
     return longestWord ? measureAt(longestWord, sz) + PAD : sz * 6 + PAD;
   }
 
+  function availableBoxWidth() {
+    const wordZone = document.querySelector('.word-zone');
+    if (wordZone && wordZone.clientWidth > 0) return wordZone.clientWidth - 16;
+    // fallback before layout: respect the CSS max-width cap
+    const cssMax = window.innerWidth >= 769 ? 900 : 640;
+    return Math.min(window.innerWidth, cssMax) - 32;
+  }
+
   // Find the largest font size at which the box fits within screen width
   function computeMaxFontSize() {
-    const maxBoxWidth = window.innerWidth - 16;
+    const maxBoxWidth = availableBoxWidth();
     if (!longestWord) return 200;
     let lo = 5, hi = 400;
     while (lo < hi) {
@@ -568,7 +576,7 @@
   }
 
   function applyFont() {
-    const maxBoxWidth = window.innerWidth - 16;
+    const maxBoxWidth = availableBoxWidth();
 
     const boxW = Math.min(maxBoxWidth, Math.max(100, requiredBoxWidth(fontSize)));
     const wordZone = document.querySelector('.word-zone');
